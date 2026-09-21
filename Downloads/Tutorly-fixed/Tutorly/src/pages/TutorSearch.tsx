@@ -281,7 +281,7 @@ export default function TutorSearch() {
                   {tutor.avg_rating > 0 ? (
                     <span className="flex items-center gap-1">
                       <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                      <span className="font-semibold text-foreground">{tutor.avg_rating.toFixed(1)}</span>
+                      <span className="font-semibold text-foreground">{Number(tutor.avg_rating).toFixed(1)}</span>
                       <span>({tutor.total_reviews})</span>
                     </span>
                   ) : (

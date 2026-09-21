@@ -207,10 +207,10 @@ export default function TutorProfile() {
               </div>
 
               <div className="mt-3 flex flex-wrap items-center gap-4 text-sm">
-                {tutor.avg_rating > 0 && (
+                {Number(tutor.avg_rating) > 0 && (
                   <div className="flex items-center gap-1">
                     <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                    <span className="font-semibold text-foreground">{tutor.avg_rating.toFixed(1)}</span>
+                   <span className="font-semibold text-foreground">{Number(tutor.avg_rating).toFixed(1)}</span>
                     <span className="text-muted-foreground">({tutor.total_reviews} reviews)</span>
                   </div>
                 )}
@@ -309,14 +309,14 @@ export default function TutorProfile() {
           <div className="rounded-2xl border border-border bg-white p-6">
             <div className="flex items-center justify-between mb-5">
               <h2 className="font-display text-xl font-bold text-foreground">Reviews</h2>
-              {tutor.avg_rating > 0 && (
+              {Number(tutor.avg_rating) > 0 && (
                 <div className="flex items-center gap-1.5">
                   <div className="flex items-center gap-0.5">
                     {[1,2,3,4,5].map((s) => (
-                      <Star key={s} className={`h-4 w-4 ${s <= Math.round(tutor.avg_rating) ? "fill-amber-400 text-amber-400" : "fill-gray-200 text-gray-200"}`} />
+                      <Star key={s} className={`h-4 w-4 ${s <= Math.round(Number(tutor.avg_rating)) ? "fill-amber-400 text-amber-400" : "fill-gray-200 text-gray-200"}`} />
                     ))}
                   </div>
-                  <span className="font-semibold text-foreground">{tutor.avg_rating.toFixed(1)}</span>
+                  <span className="font-semibold text-foreground">{Number(tutor.avg_rating).toFixed(1)}</span>
                   <span className="text-sm text-muted-foreground">({tutor.total_reviews})</span>
                 </div>
               )}
