@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import DashboardLayout from "@/components/DashboardLayout";
+import { formatTimeRange12h } from "@/lib/formatTime";
 import { Star, MapPin, BookOpen, Clock, ChevronLeft, MessageCircle, X } from "lucide-react";
 import { toast } from "sonner";
 
@@ -289,7 +290,7 @@ export default function TutorProfile() {
                       <button key={slot.id}
                         onClick={() => { setSelectedSlot(slot); setShowModal(true); }}
                         className="rounded-xl border border-border bg-white px-4 py-2 text-sm font-medium text-foreground hover:border-primary hover:bg-primary/5 transition-all">
-                        {slot.start_time.slice(0, 5)} – {slot.end_time.slice(0, 5)}
+                        {formatTimeRange12h(slot.start_time, slot.end_time)}
                       </button>
                     ))}
                   </div>
@@ -377,9 +378,13 @@ export default function TutorProfile() {
             <div className="space-y-4 mb-5">
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">Subject <span className="text-destructive">*</span></label>
-                <input value={bookingSubject} onChange={(e) => setBookingSubject(e.target.value)}
-                  placeholder="e.g. Calculus, Python, Essay Writing"
-                  className="w-full rounded-xl border border-input px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" />
+                <select value={bookingSubject} onChange={(e) => setBookingSubject(e.target.value)}
+                  className="w-full rounded-xl border border-input px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background">
+                  <option value="" disabled>Select a subject this tutor teaches</option>
+                  {tutor?.subjects?.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">Notes <span className="text-muted-foreground font-normal">(optional)</span></label>

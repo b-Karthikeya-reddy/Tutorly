@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NYC_COLLEGES } from "@/lib/nycColleges";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { GraduationCap, Eye, EyeOff } from "lucide-react";
@@ -149,8 +150,14 @@ export default function Auth() {
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium text-foreground">University</label>
                   <input value={university} onChange={(e) => setUniversity(e.target.value)}
-                    placeholder="e.g. University of Texas at Austin"
+                    list="nyc-colleges"
+                    placeholder="Start typing your college..."
                     className="w-full rounded-xl border border-input px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                  <datalist id="nyc-colleges">
+                    {NYC_COLLEGES.map((c) => (
+                      <option key={c} value={c} />
+                    ))}
+                  </datalist>
                   <p className="text-xs text-muted-foreground">You'll only see tutors from your university</p>
                 </div>
               </>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
+import { formatTimeRange12h } from "@/lib/formatTime";
 import DashboardLayout from "@/components/DashboardLayout";
 import ReviewModal from "@/components/ReviewModel";
 import { Search, BookOpen, CheckCircle, XCircle, Star, Calendar, MessageCircle } from "lucide-react";
@@ -168,7 +169,7 @@ export default function StudentDashboard() {
                     <div>
                       <p className="font-medium text-foreground">{b.tutor_name}</p>
                       <p className="text-xs text-muted-foreground">
-                        {b.subject} · {formatDate(b.slot.slot_date)} · {b.slot.start_time?.slice(0, 5)} – {b.slot.end_time?.slice(0, 5)}
+                        {b.subject} · {formatDate(b.slot.slot_date)} · {formatTimeRange12h(b.slot.start_time, b.slot.end_time)}
                       </p>
                     </div>
                   </div>

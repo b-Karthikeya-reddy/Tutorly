@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
+import { formatTimeRange12h } from "@/lib/formatTime";
 import { useAuth } from "@/hooks/useAuth";
 import DashboardLayout from "@/components/DashboardLayout";
 import { Users, Star, Calendar, Clock, Check, X, Trash2, Plus, BookOpen } from "lucide-react";
@@ -257,7 +258,7 @@ export default function TutorDashboard() {
                     </div>
                     <div>
                       <p className="font-medium text-foreground">{b.student_name}</p>
-                      <p className="text-xs text-muted-foreground">{b.subject} · {b.slot.start_time?.slice(0, 5)} – {b.slot.end_time?.slice(0, 5)}</p>
+                      <p className="text-xs text-muted-foreground">{b.subject} · {formatTimeRange12h(b.slot.start_time, b.slot.end_time)}</p>
                     </div>
                   </div>
                   <Link to={`/messages/${b.student_id}`} className="text-xs text-primary hover:underline">Message →</Link>
@@ -301,7 +302,7 @@ export default function TutorDashboard() {
                           <StatusBadge status={b.status} />
                         </div>
                         <p className="text-xs text-muted-foreground mt-0.5">
-                          {b.subject} · {formatDate(b.slot.slot_date)} · {b.slot.start_time?.slice(0, 5)} – {b.slot.end_time?.slice(0, 5)}
+                          {b.subject} · {formatDate(b.slot.slot_date)} · {formatTimeRange12h(b.slot.start_time, b.slot.end_time)}
                         </p>
                       </div>
                     </div>
@@ -380,7 +381,7 @@ export default function TutorDashboard() {
                           <Calendar className="h-4 w-4 text-muted-foreground shrink-0" />
                           <span className="font-medium text-foreground">{formatDate(slot.slot_date)}</span>
                           <Clock className="h-4 w-4 text-muted-foreground" />
-                          <span className="text-muted-foreground">{slot.start_time.slice(0, 5)} – {slot.end_time.slice(0, 5)}</span>
+                          <span className="text-muted-foreground">{formatTimeRange12h(slot.start_time, slot.end_time)}</span>
                           {slot.is_booked && (
                             <span className="rounded-full bg-amber-50 border border-amber-200 px-2 py-0.5 text-xs font-medium text-amber-600">Booked</span>
                           )}
