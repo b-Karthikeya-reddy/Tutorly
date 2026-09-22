@@ -130,7 +130,8 @@ export default function TutorProfile() {
       setSelectedSlot(null);
       setBookingSubject("");
       setBookingNotes("");
-      fetchSlots();
+      await fetchSlots();
+      setSelectedDate("");
     } catch (err: any) {
       toast.error(err.message);
     } finally {
@@ -286,7 +287,7 @@ export default function TutorProfile() {
                     Available times for {formatDateLong(selectedDate)}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {slotsByDate[selectedDate].map((slot) => (
+                    {(slotsByDate[selectedDate] || []).map((slot) => (
                       <button key={slot.id}
                         onClick={() => { setSelectedSlot(slot); setShowModal(true); }}
                         className="rounded-xl border border-border bg-white px-4 py-2 text-sm font-medium text-foreground hover:border-primary hover:bg-primary/5 transition-all">
